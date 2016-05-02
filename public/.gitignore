@@ -1,0 +1,12 @@
+.directory
+
+node_modules/
+bower_components/
+*.log
+
+build/
+dist/
+.tmp/
+
+.idea/
+nbproject/
