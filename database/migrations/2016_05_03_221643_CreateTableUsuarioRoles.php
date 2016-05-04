@@ -12,14 +12,14 @@ class CreateTableUsuarioRoles extends Migration
      */
     public function up()
     {
-        Schema::create('usuario_roles', function(Blueprint $table){
+        Schema::create('rol_usuario', function(Blueprint $table){
             $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->integer('rol_id')->unsigned();
             $table->foreign('rol_id')->references('id')->on('roles');
         });
 
-        DB::table('usuario_roles')->insert([
+        DB::table('rol_usuario')->insert([
             'usuario_id' => 1,
             'rol_id' => 1
         ]);

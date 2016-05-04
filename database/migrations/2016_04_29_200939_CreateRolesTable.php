@@ -29,6 +29,9 @@ class CreateRolesTable extends Migration
         DB::table('roles')->insert([
             'nombre' => 'ESTUDIANTE',
         ]);
+        DB::table('roles')->insert([
+            'nombre' => 'LIDER',
+        ]);
     }
 
     /**

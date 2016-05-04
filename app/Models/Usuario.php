@@ -8,21 +8,20 @@ class Usuario extends Authenticatable
 {
     protected $table = 'usuarios';
 
-    protected $fillable = ['email', 'password', 'rol_id', 'estado'];
+    protected $fillable = ['email', 'password', 'estado'];
 
     protected $hidden = ['password'];
 
-    public function rol()
+    public function roles()
     {
-        return $this->belongsTo(Rol::class);
+        return $this->belongsToMany(Rol::class)->select('nombre');
     }
 
-    public static function nuevo($nombre, $contrasena, $id_rol, $estado = -1)
+    public static function nuevo($nombre, $contrasena, $estado = -1)
     {
         return parent::create([
             'email' => $nombre,
             'password' => password_hash($contrasena, PASSWORD_DEFAULT),
-            'rol_id' => $id_rol,
             'estado' => $estado
         ]);
     }

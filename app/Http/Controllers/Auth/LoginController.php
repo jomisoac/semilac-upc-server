@@ -58,10 +58,11 @@ class LoginController extends Controller
                 'id' => $user->id,
                 'email' => $user->email,
                 'estado' => $user->estado,
-                'rol' => $user->rol->nombre
+                'roles' => $user->roles
             ]];
-        switch($user->rol->nombre){
-            case 'DIRECTOR':
+        foreach ($user->roles as $rol){
+            switch($rol->nombre){
+                case 'DIRECTOR':
 //                $director = Director::where('usuario_id', $user->id)->first();
 //                $data['usuario']['director'] = [
 //                    'id' => $director->id,
@@ -69,8 +70,8 @@ class LoginController extends Controller
 //                ];
 //
 //                $data['usuario']['imagen'] =  $director->avatar;
-                break;
-            case 'TUTOR':
+                    break;
+                case 'TUTOR':
 //                $tutor = Tutor::where('usuario_id', $user->id)->first();
 //                $data['usuario']['tutor'] = [
 //                    'id' => $tutor->id,
@@ -78,8 +79,8 @@ class LoginController extends Controller
 //                ];
 //
 //                $data['usuario']['imagen'] =  $tutor->avatar;
-                break;
-            case 'ESTUDIANTE':
+                    break;
+                case 'ESTUDIANTE':
 //                $estudiante = Estudiante::where('usuario_id', $user->id)->first();
 //                $data['usuario']['nombre'] = $estudiante->nombres.' '.$estudiante->apellidos;
 //                $data['usuario']['email'] = $estudiante->email;
@@ -87,11 +88,13 @@ class LoginController extends Controller
 //                $data['usuario']['telefono'] = $estudiante->telefono;
 //                $data['usuario']['imagen'] =  $estudiante->imagen;
 //                $data['usuario']['id'] =  $estudiante->id;
-                break;
-            case 'LIDER':
+                    break;
+                case 'LIDER':
 //
-                break;
+                    break;
+            }
         }
+
         return $data;
     }
 }
