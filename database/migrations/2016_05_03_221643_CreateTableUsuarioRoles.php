@@ -19,10 +19,14 @@ class CreateTableUsuarioRoles extends Migration
             $table->foreign('rol_id')->references('id')->on('roles');
         });
 
-        DB::table('rol_usuario')->insert([
-            'usuario_id' => 1,
-            'rol_id' => 1
-        ]);
+        $num = 5;
+        for ($i = 1; $i <= $num; $i++){
+            DB::table('rol_usuario')->insert([
+                'usuario_id' => 1,
+                'rol_id' => $i
+            ]);
+        }
+
     }
 
     /**

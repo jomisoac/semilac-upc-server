@@ -25,4 +25,6 @@ class Usuario extends Authenticatable
             'estado' => $estado
         ]);
     }
+    
+    
 }
