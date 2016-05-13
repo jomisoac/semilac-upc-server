@@ -10,7 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::group(['middleware' => 'cors'], function () {
-    Route::post('/api/login', 'Auth\LoginController@autenticarUsuario');
-    Route::get('/api/new_token', 'Auth\LoginController@refreshToken');
+include 'Routes/Director.php';
+Route::group(['middleware' => 'cors'], function ()
+{
+    Route::group(['prefix' => 'api'], function()
+    {
+        Route::post('login', 'Auth\LoginController@autenticarUsuario');
+        Route::get('new_token', 'Auth\LoginController@refreshToken');
+
+    });
 });
