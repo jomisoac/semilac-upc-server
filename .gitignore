@@ -7,3 +7,11 @@ Homestead.json
 /bower_components
 /.tmp
 .idea
+/nbproject
+/animacion/nbproject/private/
+/animacion/build/
+/animacion_server/nbproject/private/
+/animacion - copia/build/
+/animacion - copia/nbproject/private/
+/AnimacionServer/nbproject/private/
+/AnimacionServer/build/
