@@ -14,6 +14,13 @@ class CreateTableDirectores extends Migration
     {
         Schema::create('directores', function(Blueprint $table){
             $table->increments('id');
+            $table->integer('identificacion');
+            $table->string('nombres');
+            $table->string('apellidos');
+            $table->date('fechaIngreso');
+            $table->integer('usuario_id')->unsigned();
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->boolean('activo')->default('1');
         });
     }
 

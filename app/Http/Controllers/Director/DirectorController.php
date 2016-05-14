@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Director;
 
+use App\Models\Rol;
 use App\Models\Usuario;
 use App\Models\Director;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class DirectorController extends Controller
     }
     
     public function get($id){
-        return Director::find($id);
+        return $director = Director::find($id);
     }
 
     function getUsuario($email){
@@ -33,9 +34,12 @@ class DirectorController extends Controller
             if($this->getUsuario($usuario['email'])){
                 return JsonResponse::create('Ya existe un usuario con este email');
             }else{
+                $usuario = Usuario::nuevo($usuario['email'], $usuario['pass']);
+                $data['usuario_id'] = $usuario->id;
                 $director = new Director($data);
                 if($director->save()){
-                    if (Usuario::nuevo($usuario['email'], $usuario['pass'])){
+                    if ($usuario){
+                        Usuario::addRol($usuario->id, $this->getRol('DIRECTOR')->id);
                         return JsonResponse::create('Se creo el director corectamente');
                     }else{
                         $usuario->delete();
@@ -44,6 +48,47 @@ class DirectorController extends Controller
                     }
                 }
             }
+        }
+    }
+
+    public function put(Request $request, $id)
+    {
+        try{
+            $data = $request->json()->all();
+            $director = $this->get($id);
+
+            if($director){
+//                actualizo los campos del director
+                foreach($data as $campo=>$valor){
+                    $director->$campo = $valor;
+                }
+                if($director->save()){
+                    return JsonResponse::create('Director actualizado correctamente');
+                }else {
+                    return JsonResponse::create('No se pudo actualizar los datos del director');
+                }
+            }else{
+                return JsonResponse::create('El director que desea modificar no existe');
+            }
+
+        }catch(Exception $e){
+            return JsonResponse::create("Se produjo una exepcion");
+        }
+    }
+
+    //ESTE METODO NO ELMINA, SOLO DESACTIVA
+    public function delete($id)
+    {
+        $director = $this->get($id);
+        if($director){
+            $usuario = $director->usuario;
+            $usuario->estado = -1;
+            $director->activo = 0;
+            $director->save();
+            $usuario->save();
+            return JsonResponse::create('Director inhabilitado');
+        }else{
+            return JsonResponse::create('El conductor no existe');
         }
     }
 

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class Usuario extends Authenticatable
 {
@@ -23,6 +25,13 @@ class Usuario extends Authenticatable
             'email' => $nombre,
             'password' => password_hash($contrasena, PASSWORD_DEFAULT),
             'estado' => $estado
+        ]);
+    }
+
+    public static function addRol($id, $rol){
+        DB::table('rol_usuario')->insert([
+            'usuario_id' => $id,
+            'rol_id' => $rol
         ]);
     }
     

@@ -10,7 +10,7 @@ class Director extends Model
 
     public  $timestamps = false;
 
-    public $fillable = ['id'];
+    public $fillable = ['identificacion', 'nombres', 'apellidos', 'fechaIngreso', 'usuario_id'];
     
     public function usuario()
     {

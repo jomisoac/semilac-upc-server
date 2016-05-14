@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Director;
 use Illuminate\Http\Request;
 
 use App\Models\Usuario;
@@ -15,6 +16,11 @@ use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt.auth', ['except' => ['autenticarUsuario']]);
+    }
+
     public function autenticarUsuario(Request $request)
     {
         // credenciales para loguear al usuario
@@ -22,8 +28,8 @@ class LoginController extends Controller
         $credentials['password'] = $request->get('pass');
 
         try {
-            $user = Usuario::where('email' ,$credentials['email'])->first();
-            if($user && password_verify($credentials['password'] , $user->password)) {
+            $user = Usuario::where('email', $credentials['email'])->first();
+            if ($user && password_verify($credentials['password'], $user->password)) {
                 $token = JWTAuth::fromUser($user, $this->getData($user));
             } else {
                 return response()->json(['mensajeError' => 'Usuario o contraseña incorrectos, intentelo denuevo'], 401);
@@ -40,15 +46,15 @@ class LoginController extends Controller
     public function refreshToken()
     {
         $token = JWTAuth::getToken();
-        if(!$token){
+        if (!$token) {
             return response()->json(['Token no proporcionado'], 401);
         }
-        try{
+        try {
             $token = JWTAuth::refresh($token);
-        }catch(TokenInvalidException $e){
+        } catch (TokenInvalidException $e) {
             return response()->json(['messageError' => $e->getMessage()], 403);
         }
-        return response()->json(['token'=>$token]);
+        return response()->json(['token' => $token]);
     }
 
     private function getData($user)
@@ -60,14 +66,15 @@ class LoginController extends Controller
                 'estado' => $user->estado,
                 'roles' => $user->roles
             ]];
-        foreach ($user->roles as $rol){
-            switch($rol->nombre){
+        foreach ($user->roles as $rol) {
+            switch ($rol->nombre) {
                 case 'DIRECTOR':
-//                $director = Director::where('usuario_id', $user->id)->first();
-//                $data['usuario']['director'] = [
-//                    'id' => $director->id,
-//                    'nombre' => $director->nombre,
-//                ];
+                    $director = Director::where('usuario_id', $user->id)->first();
+//                    $data['usuario']['director'] = [
+//                        'id' => $director->id,
+//                        'nombres' => $director->nombres,
+//                        'apillidos' => $director->apellidos
+//                    ];
 //
 //                $data['usuario']['imagen'] =  $director->avatar;
                     break;

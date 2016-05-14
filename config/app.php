@@ -159,6 +159,7 @@ return [
          * JWT
          */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class
 
     ],
 
@@ -208,7 +209,7 @@ return [
 
 //        JWT
         'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory'=> Tymon\JWTAuth\Facades\JWTFactory::class,
+        'JWTFactory'=> Tymon\JWTAuth\Facades\JWTFactory::class
 
 
     ],
