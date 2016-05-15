@@ -19,5 +19,6 @@ Route::group(['middleware' => 'cors'], function ()
     Route::group(['prefix' => 'api'], function()
     {
         include 'Routes/Director.php';
+        include 'Routes/Convocatorias.php';  
     });
 });
