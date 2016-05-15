@@ -18,8 +18,16 @@ Route::group(['middleware' => 'cors'], function ()
     
     Route::group(['prefix' => 'api'], function()
     {
-        include 'Routes/Director.php';
-        include 'Routes/Grupo.php';
-        include 'Routes/Tutores.php';
+        // include 'Routes/Director.php';
+        // include 'Routes/Grupo.php';
+        // include 'Routes/Tutores.php';
+        // Agrega automaticamente los archivos php dentro de la carpeta Routes.
+        $ruta = $_SERVER["DOCUMENT_ROOT"]."/semilac-upc-server/"."app/Http/Routes";
+        foreach (glob("$ruta/*.php") as $filename)
+        {
+            include_once $filename;
+        }
+
+
     });
 });
