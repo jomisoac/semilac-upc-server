@@ -4,6 +4,8 @@
 Homestead.yaml
 Homestead.json
 .env
+env
 /bower_components
 /.tmp
 .idea
+/nbproject
