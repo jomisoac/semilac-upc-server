@@ -20,5 +20,6 @@ Route::group(['middleware' => 'cors'], function ()
     {
         include 'Routes/Director.php';
         include 'Routes/Grupo.php';
+        include 'Routes/Tutores.php';
     });
 });
