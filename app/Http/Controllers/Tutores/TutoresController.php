@@ -37,7 +37,8 @@ class TutoresController extends Controller
 				$tutor = new Tutor($data);
 				if($tutor->save()){
 					if ($usuario){
-						Usuario::addRol($usuario->id, $this->getRol('TUTOR')->id);
+						$usuario->roles()->attach($this->getRol('TUTOR')->id);
+//						Usuario::addRol($usuario->id, $this->getRol('TUTOR')->id);
 						return JsonResponse::create('Se creó el tutor correctamente.');
 					}
 					else{

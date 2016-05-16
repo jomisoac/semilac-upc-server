@@ -27,13 +27,4 @@ class Usuario extends Authenticatable
             'estado' => $estado
         ]);
     }
-
-    public static function addRol($id, $rol){
-        DB::table('rol_usuario')->insert([
-            'usuario_id' => $id,
-            'rol_id' => $rol
-        ]);
-    }
-    
-    
 }

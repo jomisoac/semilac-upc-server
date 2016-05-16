@@ -68,6 +68,6 @@ class CreateTableProgramas extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('programas');
     }
 }

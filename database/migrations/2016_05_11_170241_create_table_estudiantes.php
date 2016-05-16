@@ -21,12 +21,13 @@ class CreateTableEstudiantes extends Migration
             $table->string('apellidos');
             $table->char('sexo', '1');
             $table->date('fecha_nacimiento');
-            $table->string('lugar_expedicion');
+            $table->string('fecha_expedicion');
             $table->string('lugar_nacimiento');
+            $table->string('lugar_expedicion');
             $table->string('estado_civil');
             $table->string('direccion');
             $table->string('telefono');
-            $table->boolean('estado');
+            $table->boolean('activo')->default('1');
             $table->string('universidad');
             $table->integer('programa_id')->unsigned();
             $table->foreign('programa_id')->references('id')->on('programas');
@@ -41,6 +42,6 @@ class CreateTableEstudiantes extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('estudiantes');
     }
 }
