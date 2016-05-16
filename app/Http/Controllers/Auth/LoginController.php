@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Director;
+use App\Models\Estudiante;
 use Illuminate\Http\Request;
 
 use App\Models\Usuario;
@@ -88,13 +89,14 @@ class LoginController extends Controller
 //                $data['usuario']['imagen'] =  $tutor->avatar;
                     break;
                 case 'ESTUDIANTE':
-//                $estudiante = Estudiante::where('usuario_id', $user->id)->first();
-//                $data['usuario']['nombre'] = $estudiante->nombres.' '.$estudiante->apellidos;
-//                $data['usuario']['email'] = $estudiante->email;
-//                $data['usuario']['identificacion'] = $estudiante->identificacion;
-//                $data['usuario']['telefono'] = $estudiante->telefono;
-//                $data['usuario']['imagen'] =  $estudiante->imagen;
-//                $data['usuario']['id'] =  $estudiante->id;
+                $estudiante = Estudiante::where('usuario_id', $user->id)->first();
+                $data['usuario']['datos'] = [
+                    'nombre' => $estudiante->nombres.' '.$estudiante->apellidos,
+                    'identificacion' => $estudiante->identificacion,
+                    'telefono' => $estudiante->telefono,
+//                  'imagen' =>  $estudiante->imagen;
+                    'id' =>  $estudiante->id,
+                ];
                     break;
                 case 'LIDER':
 //
