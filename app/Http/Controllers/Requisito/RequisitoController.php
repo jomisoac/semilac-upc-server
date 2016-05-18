@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class RequisitoController extends Controller {
 
     public function getAll() {
-        return Requisito::all();
+        return Requisito::where('activo', '!=', 0)->get();
     }
 
     public function get($id) {
