@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Director;
 use App\Models\Estudiante;
+use App\Models\Tutor;
 use Illuminate\Http\Request;
 
 use App\Models\Usuario;
@@ -62,7 +63,7 @@ class LoginController extends Controller
     {
         $data = [
             'usuario' => [
-                'id' => $user->id,
+                'usuario_id' => $user->id,
                 'email' => $user->email,
                 'estado' => $user->estado,
                 'roles' => $user->roles
@@ -71,32 +72,37 @@ class LoginController extends Controller
             switch ($rol->nombre) {
                 case 'DIRECTOR':
                     $director = Director::where('usuario_id', $user->id)->first();
-//                    $data['usuario']['director'] = [
-//                        'id' => $director->id,
-//                        'nombres' => $director->nombres,
-//                        'apillidos' => $director->apellidos
-//                    ];
-//
-//                $data['usuario']['imagen'] =  $director->avatar;
+                    if ($director) {
+                        $data['usuario']['datos'] = [
+                            'id' => $director->id,
+                            'nombres' => $director->nombres,
+                            'apellidos' => $director->apellidos,
+                            'identificacion' => $director->identificacion
+                        ];
+                    }
                     break;
                 case 'TUTOR':
-//                $tutor = Tutor::where('usuario_id', $user->id)->first();
-//                $data['usuario']['tutor'] = [
-//                    'id' => $tutor->id,
-//                    'nombre' => $tutor->nombre,
-//                ];
-//
-//                $data['usuario']['imagen'] =  $tutor->avatar;
+                $tutor = Tutor::where('usuario_id', $user->id)->first();
+                    if($tutor){
+                        $data['usuario']['datos'] = [
+                            'id' => $tutor->id,
+                            'nombres' => $tutor->nombres,
+                            'apellidos' => $tutor->apellidos,
+                            'identificacion' => $tutor->identificacion
+                        ];
+                    }
                     break;
                 case 'ESTUDIANTE':
-                $estudiante = Estudiante::where('usuario_id', $user->id)->first();
-                $data['usuario']['datos'] = [
-                    'nombre' => $estudiante->nombres.' '.$estudiante->apellidos,
-                    'identificacion' => $estudiante->identificacion,
-                    'telefono' => $estudiante->telefono,
-//                  'imagen' =>  $estudiante->imagen;
-                    'id' =>  $estudiante->id,
-                ];
+                    $estudiante = Estudiante::where('usuario_id', $user->id)->first();
+                    if($estudiante){
+                        $data['usuario']['datos'] = [
+                            'nombres' => $estudiante->nombres,
+                            'apellidos' => $estudiante->apellidos,
+                            'identificacion' => $estudiante->identificacion,
+                            'celular' => $estudiante->telefono,
+                            'id' => $estudiante->id,
+                        ];
+                    }
                     break;
                 case 'LIDER':
 //

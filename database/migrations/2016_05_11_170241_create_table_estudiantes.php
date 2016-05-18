@@ -28,7 +28,7 @@ class CreateTableEstudiantes extends Migration
             $table->string('direccion');
             $table->string('telefono');
             $table->boolean('activo')->default('1');
-            $table->string('universidad');
+            $table->string('universidad')->default('Universidad Popular del Cesar');
             $table->integer('programa_id')->unsigned();
             $table->foreign('programa_id')->references('id')->on('programas');
             $table->integer('n_semestre');

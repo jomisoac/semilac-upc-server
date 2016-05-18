@@ -39,9 +39,14 @@ class DirectorController extends Controller
                 $director = new Director($data);
                 if($director->save()){
                     if ($usuario){
-                        $usuario->roles()->attach($this->getRol('DIRECTOR')->id);
+                        if($usuario->roles()->attach($this->getRol('DIRECTOR')->id)){
+                            return JsonResponse::create('Se creo el director corectamente');
+                        }else{
+                            $usuario->delete();
+                            return JsonResponse::create('Ocurrio un error al asignar los roles a este usuario');
+                        }
 //                        Usuario::addRol($usuario->id, $this->getRol('DIRECTOR')->id);
-                        return JsonResponse::create('Se creo el director corectamente');
+
                     }else{
                         $usuario->delete();
                         $director->delete();

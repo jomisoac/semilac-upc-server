@@ -37,9 +37,14 @@ class TutoresController extends Controller
 				$tutor = new Tutor($data);
 				if($tutor->save()){
 					if ($usuario){
-						$usuario->roles()->attach($this->getRol('TUTOR')->id);
+						if($usuario->roles()->attach($this->getRol('TUTOR')->id)){
+							return JsonResponse::create('Se creó el tutor correctamente.');	
+						}else{
+							$usuario->delete();
+							return JsonResponse::create('Ocurrio un error al asignarte el rol, intentalo denuevo.');
+						}
 //						Usuario::addRol($usuario->id, $this->getRol('TUTOR')->id);
-						return JsonResponse::create('Se creó el tutor correctamente.');
+						
 					}
 					else{
 						$usuario->delete();

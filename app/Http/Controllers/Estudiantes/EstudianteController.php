@@ -39,9 +39,13 @@ class EstudianteController extends Controller
                 $estudiante = new Estudiante($data);
                 if($estudiante->save()){
                     if ($usuario){
-                        $usuario->roles()->attach($this->getRol('ESTUDIANTE')->id);
+                        if($usuario->roles()->attach($this->getRol('ESTUDIANTE')->id)){
+                            return JsonResponse::create('Exito al registrarse.');
+                        }else{
+                            $usuario->delete();
+                            return JsonResponse::create('Ocurrio un error al asignarte el rol, intentalo denuevo.');
+                        }
 //						Usuario::addRol($usuario->id, $this->getRol('TUTOR')->id);
-                        return JsonResponse::create('Exito al registrarse.');
                     }
                     else{
                         $usuario->delete();

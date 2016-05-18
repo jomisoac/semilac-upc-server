@@ -18,46 +18,46 @@ class CreateTableProgramas extends Migration
         });
 
         DB::table('programas')->insert([
-            'nombre' => 'INGENIERIA DE SISTEMAS'
+            'nombre' => 'Ingeniería de sistemas'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'INGENIERIA ELECTRONICA'
+            'nombre' => 'Ingeniería electronica'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'INGENIERIA AMBIENTAL Y SANITARIA'
+            'nombre' => 'Ingeniería ambiental y sanitaria'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'INGENIERIA AGROINDUSTRIAL'
+            'nombre' => 'Ingeniería agroindustrial'
         ]);
         DB::table('programas')->insert([
             'nombre' => 'DERECHO'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'LICENTIATURA EN CIENTAS NATURALES'
+            'nombre' => 'Licenciatura en ciencias naturales'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'LICENCIATURA EN MATEMATICAS Y FISICA'
+            'nombre' => 'LICENCIATURA en matematicas y fisica'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'LICENTIATURA EN IDIOMAS'
+            'nombre' => 'Licenciatura en idiomas'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'ADMINISTRACION DE EMPRESAS'
+            'nombre' => 'Administración de empresas'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'CONTADURIA'
+            'nombre' => 'Contaduría'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'ECONOMIA'
+            'nombre' => 'Economía'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'ENFERMERIA'
+            'nombre' => 'Enfermería superior'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'PSICOLOGIA'
+            'nombre' => 'Psicología'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'SOCIOLOGIA'
+            'nombre' => 'Sociología'
         ]);
     }
 
