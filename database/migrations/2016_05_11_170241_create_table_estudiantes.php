@@ -15,7 +15,11 @@ class CreateTableEstudiantes extends Migration
         Schema::create('estudiantes', function(Blueprint $table){
             $table->increments('id');
             $table->integer('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->foreign('usuario_id')
+                ->references('id')
+                ->on('usuarios')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('identificacion');
             $table->string('nombres');
             $table->string('apellidos');

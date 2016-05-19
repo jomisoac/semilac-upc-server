@@ -14,7 +14,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class PerfilController extends Controller
 {
     public function getDatosPerfil($id){
-        if($estudiante = Estudiante::where('usuario_id', $id)->first()->load('programa')){
+        if($estudiante = Estudiante::where('usuario_id', $id)->first()){
+            $estudiante->load('programa');
             return $estudiante;
         }elseif ($tutor = Tutor::where('usuario_id', $id)->first()){
             return $tutor;

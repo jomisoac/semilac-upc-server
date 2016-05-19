@@ -19,7 +19,11 @@ class CreateTableDirectores extends Migration
             $table->string('apellidos');
             $table->date('fechaIngreso');
             $table->integer('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->foreign('usuario_id')
+                ->references('id')
+                ->on('usuarios')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->boolean('activo')->default('1');
         });
     }

@@ -23,39 +23,44 @@ class EstudianteController extends Controller
     }
 
     public function post(Request $request){
-        $data = $request->json()->all();
-        $usuario = $data['usuario'];
-        unset($data['usuario']);
-        if($this->get($data['identificacion'])){
-            return JsonResponse::create('Ya existe un estudiante con esta identificación');
-        }
-        else{
-            if($this->getUsuario($usuario['email'])){
-                return JsonResponse::create('Ya existe un usuario con este email');
-            }
-            else{
-                $usuario = Usuario::nuevo($usuario['email'], $usuario['pass']);
-                $data['usuario_id'] = $usuario->id;
-                $estudiante = new Estudiante($data);
-                if($estudiante->save()){
-                    if ($usuario){
-                        if($usuario->roles()->attach($this->getRol('ESTUDIANTE')->id)){
-                            return JsonResponse::create('Exito al registrarse.');
-                        }else{
+        try {
+            $data = $request->json()->all();
+            $usuario = $data['usuario'];
+            unset($data['usuario']);
+            if ($this->get($data['identificacion'])) {
+                return JsonResponse::create(array('mensaje'=>'Ya existe un estudiante con esta identificación', 'ok' => 'false'));
+            } else {
+                if ($this->getUsuario($usuario['email'])) {
+                    return JsonResponse::create(array('mensaje'=>'Ya existe un usuario con este email', 'ok' => 'false'));
+                } else {
+                    $usuario = $this->createUser($usuario['email'], $usuario['pass']);
+                    $data['usuario_id'] = $usuario->id;
+                    $estudiante = new Estudiante($data);
+                    if ($estudiante->save()) {
+                        if ($usuario) {
+                            $this->addRol($usuario);
+                            return JsonResponse::create('Registro exitoso, seras redireccionado a la página de inicio sesión.');
+                        } else {
+                            $estudiante->delete();
                             $usuario->delete();
-                            return JsonResponse::create('Ocurrio un error al asignarte el rol, intentalo denuevo.');
+                            return JsonResponse::create(array('mensaje' => 'Ocurrió un error al guardar los datos, intentalo deneuvo.', 'ok' => 'false'));
                         }
-//						Usuario::addRol($usuario->id, $this->getRol('TUTOR')->id);
-                    }
-                    else{
-                        $usuario->delete();
-                        $estudiante->delete();
-                        return JsonResponse::create('Ocurrió un error al guardar los datos.');
                     }
                 }
             }
-
+        } catch (Exception $e) {
+            return JsonResponse::create('Se produjo una exepción');
         }
+    }
+
+    private function addRol($usuario)
+    {
+        return $usuario->roles()->attach($this->getRol('ESTUDIANTE')->id);
+    }
+
+    private function createUser($name, $pass)
+    {
+        return Usuario::nuevo($name, $pass);
     }
 
     private function getRol($nombre)

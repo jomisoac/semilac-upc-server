@@ -20,6 +20,7 @@ class Estudiante extends Model
         'programa_id', 'n_semestre', 'fecha_expedicion' ];
 
     protected $guarded = ['id'];
+    
     public function usuario()
     {
         return $this->belongsTo(Usuario::class);

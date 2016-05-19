@@ -16,7 +16,7 @@ class Usuario extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Rol::class)->select('nombre');
+        return $this->belongsToMany(Rol::class);
     }
 
     public static function nuevo($nombre, $contrasena, $estado = -1)

@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+Route::get('/api/prueba', 'PruebasController@index');
 Route::group(['middleware' => 'cors'], function ()
 {
     Route::post('/api/login', 'Auth\LoginController@autenticarUsuario');

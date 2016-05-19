@@ -23,38 +23,46 @@ class DirectorController extends Controller
     function getUsuario($email){
         return Usuario::where('email', $email)->first();
     }
-    
-    public function post(Request $request){
-        $data = $request->json()->all();
-        $usuario = $data['usuario'];
-        unset($data['usuario']);
-        if($this->get($data['identificacion'])){
-            return JsonResponse::create('Ya existe un director con esta identificación');
-        }else{
-            if($this->getUsuario($usuario['email'])){
-                return JsonResponse::create('Ya existe un usuario con este email');
-            }else{
-                $usuario = Usuario::nuevo($usuario['email'], $usuario['pass']);
-                $data['usuario_id'] = $usuario->id;
-                $director = new Director($data);
-                if($director->save()){
-                    if ($usuario){
-                        if($usuario->roles()->attach($this->getRol('DIRECTOR')->id)){
-                            return JsonResponse::create('Se creo el director corectamente');
-                        }else{
-                            $usuario->delete();
-                            return JsonResponse::create('Ocurrio un error al asignar los roles a este usuario');
-                        }
-//                        Usuario::addRol($usuario->id, $this->getRol('DIRECTOR')->id);
 
-                    }else{
-                        $usuario->delete();
-                        $director->delete();
-                        return JsonResponse::create('Ocurrio un error al guardar los datos');
+    public function post(Request $request){
+        try {
+            $data = $request->json()->all();
+            $usuario = $data['usuario'];
+            unset($data['usuario']);
+            if ($this->get($data['identificacion'])) {
+                return JsonResponse::create(array('mensaje'=>'Ya existe un director con esta identificación', 'ok' => 'false'));
+            } else {
+                if ($this->getUsuario($usuario['email'])) {
+                    return JsonResponse::create(array('mensaje'=>'Ya existe un usuario con este email', 'ok' => 'false'));
+                } else {
+                    $usuario = $this->createUser($usuario['email'], $usuario['pass']);
+                    $data['usuario_id'] = $usuario->id;
+                    $director = new Director($data);
+                    if ($director->save()) {
+                        if ($usuario) {
+                            $this->addRol($usuario);
+                            return JsonResponse::create('Se registro al director correctamente.');
+                        } else {
+                            $director->delete();
+                            $usuario->delete();
+                            return JsonResponse::create(array('mensaje' => 'Ocurrió un error al guardar los datos, intentalo deneuvo.', 'ok' => 'false'));
+                        }
                     }
                 }
             }
+        } catch (Exception $e) {
+            return JsonResponse::create('Se produjo una exepción');
         }
+    }
+
+    private function addRol($usuario)
+    {
+        return $usuario->roles()->attach($this->getRol('DIRECTOR')->id);
+    }
+
+    private function createUser($name, $pass)
+    {
+        return Usuario::nuevo($name, $pass);
     }
 
     public function put(Request $request, $id)
