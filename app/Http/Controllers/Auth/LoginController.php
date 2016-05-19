@@ -34,7 +34,7 @@ class LoginController extends Controller
             if ($user && password_verify($credentials['password'], $user->password)) {
                 $token = JWTAuth::fromUser($user, $this->getData($user));
             } else {
-                return response()->json(['mensajeError' => 'Usuario o contraseña incorrectos, intentelo denuevo'], 401);
+                return response()->json(['mensajeError' => 'Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.'], 401);
             }
         } catch (JWTException $e) {
             // si no se puede crear el token
