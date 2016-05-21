@@ -16,7 +16,7 @@ class Usuario extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Rol::class)->select('nombre');
+        return $this->belongsToMany(Rol::class);
     }
 
     public static function nuevo($nombre, $contrasena, $estado = -1)
@@ -27,13 +27,4 @@ class Usuario extends Authenticatable
             'estado' => $estado
         ]);
     }
-
-    public static function addRol($id, $rol){
-        DB::table('rol_usuario')->insert([
-            'usuario_id' => $id,
-            'rol_id' => $rol
-        ]);
-    }
-    
-    
 }

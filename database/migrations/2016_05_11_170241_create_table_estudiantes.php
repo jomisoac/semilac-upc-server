@@ -15,19 +15,24 @@ class CreateTableEstudiantes extends Migration
         Schema::create('estudiantes', function(Blueprint $table){
             $table->increments('id');
             $table->integer('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->foreign('usuario_id')
+                ->references('id')
+                ->on('usuarios')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('identificacion');
             $table->string('nombres');
             $table->string('apellidos');
             $table->char('sexo', '1');
             $table->date('fecha_nacimiento');
-            $table->string('lugar_expedicion');
+            $table->string('fecha_expedicion');
             $table->string('lugar_nacimiento');
+            $table->string('lugar_expedicion');
             $table->string('estado_civil');
             $table->string('direccion');
             $table->string('telefono');
-            $table->boolean('estado');
-            $table->string('universidad');
+            $table->boolean('activo')->default('1');
+            $table->string('universidad')->default('Universidad Popular del Cesar');
             $table->integer('programa_id')->unsigned();
             $table->foreign('programa_id')->references('id')->on('programas');
             $table->integer('n_semestre');
@@ -41,6 +46,6 @@ class CreateTableEstudiantes extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('estudiantes');
     }
 }
