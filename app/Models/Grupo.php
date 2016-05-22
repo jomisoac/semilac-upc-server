@@ -10,6 +10,6 @@ class Grupo extends Model
 
     public $timestamps = false;
 
-    public $fillable = ['codigo', 'nombre', 'lider', 'clasificacion', 'usuario_id'];
+    public $fillable = ['codigo', 'nombre', 'tutor_id', 'clasificacion', 'usuario_id'];
 
 }

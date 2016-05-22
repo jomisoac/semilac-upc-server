@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TutoresController extends Controller
 {
+    public function getAll(){
+        return Tutor::all();
+    }
     public function get($id)
     {
         return $tutor = Tutor::find($id);
