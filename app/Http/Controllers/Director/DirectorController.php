@@ -41,7 +41,7 @@ class DirectorController extends Controller
                     if ($director->save()) {
                         if ($usuario) {
                             $this->addRol($usuario);
-                            return JsonResponse::create('Se registró al director correctamente.');
+                            return JsonResponse::create('Se creó el director correctamente.');
                         } else {
                             $director->delete();
                             $usuario->delete();
