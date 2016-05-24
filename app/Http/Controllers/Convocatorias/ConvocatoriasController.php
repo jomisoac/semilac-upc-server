@@ -8,6 +8,7 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Psy\Util\Json;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ConvocatoriasController extends Controller
@@ -26,16 +27,26 @@ class ConvocatoriasController extends Controller
 
     public function post(Request $request){
         $data = $request->json()->all();
-        $convocatoria = new Convocatoria($data);
+        //var_dump($request);
+        $convocatoria = new Convocatoria();
+        $convocatoria->fechainicial = $data['fechainicial'];
+        $convocatoria->fechafinal = $data['fechafinal'];
+        $convocatoria->asunto = $data['asunto'];
+        $convocatoria->usuario_id = $data['usuario_id'];
                 if($convocatoria->save()){
                     if ($convocatoria){
-                        return JsonResponse::create('Se creó la convocatoria correctamente.');
+                       //$this->guardarArchivo($request, $convocatoria->id);
+                        $respuesta = array(
+                            'mensaje' => 'Se creó la convocatoria correctamente.',
+                            'convocatoria' => $convocatoria
+                        );
+                        return JsonResponse::create($respuesta);
                     }else{
                         $convocatoria->delete();
                         return JsonResponse::create('Ocurrió un error al guardar los datos.');
                     }
                 }
-            }
+    }
 
 
 
@@ -78,6 +89,25 @@ class ConvocatoriasController extends Controller
         }else{
             return JsonResponse::create('El conductor no existe');
         }
+    }
+
+    public function guardarArchivo(Request $request, $id)
+    {
+            $convocatoria = Convocatoria::find($id);
+            if(!$convocatoria){
+                return false;
+                /*return response()->json(array("message"=> 'No se encontro la convovatoria'), 400);*/
+            }
+            if ($request->hasFile('acta')) {
+                $request->file('acta')->move('archivos/actas/', "acta".$convocatoria->id.'.pdf');
+                $acta = 'http://'.$_SERVER['SERVER_NAME'].'/semilac-upc-server/public/archivos/actas/'."acta".$convocatoria->id.'.pdf';
+                $convocatoria->acta = $acta;
+                $convocatoria->save();
+                return $acta;
+            }else {
+                return false;
+                //return response()->json([], 400);
+            }
     }
 
     private function getRol($nombre)

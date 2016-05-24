@@ -30,7 +30,7 @@ class DirectorController extends Controller
             $usuario = $data['usuario'];
             unset($data['usuario']);
             if ($this->get($data['identificacion'])) {
-                return JsonResponse::create(array('mensaje'=>'Ya existe un director con esta identificación', 'ok' => 'false'));
+                return JsonResponse::create(array('mensaje'=>'Ya existe un director con esta identificación.', 'ok' => 'false'));
             } else {
                 if ($this->getUsuario($usuario['email'])) {
                     return JsonResponse::create(array('mensaje'=>'Ya existe un usuario con este email', 'ok' => 'false'));
@@ -41,17 +41,17 @@ class DirectorController extends Controller
                     if ($director->save()) {
                         if ($usuario) {
                             $this->addRol($usuario);
-                            return JsonResponse::create('Se registro al director correctamente.');
+                            return JsonResponse::create('Se creó el director correctamente.');
                         } else {
                             $director->delete();
                             $usuario->delete();
-                            return JsonResponse::create(array('mensaje' => 'Ocurrió un error al guardar los datos, intentalo deneuvo.', 'ok' => 'false'));
+                            return JsonResponse::create(array('mensaje' => 'Ocurrió un error al guardar los datos, inténtalo de nuevo.', 'ok' => 'false'));
                         }
                     }
                 }
             }
         } catch (Exception $e) {
-            return JsonResponse::create('Se produjo una exepción');
+            return JsonResponse::create('Se produjo una excepción.');
         }
     }
 
@@ -77,16 +77,16 @@ class DirectorController extends Controller
                     $director->$campo = $valor;
                 }
                 if($director->save()){
-                    return JsonResponse::create('Director actualizado correctamente');
+                    return JsonResponse::create('Director actualizado correctamente.');
                 }else {
-                    return JsonResponse::create('No se pudo actualizar los datos del director');
+                    return JsonResponse::create('No se pudieron actualizar los datos del director.');
                 }
             }else{
-                return JsonResponse::create('El director que desea modificar no existe');
+                return JsonResponse::create('El director que desea modificar no existe.');
             }
 
         }catch(Exception $e){
-            return JsonResponse::create("Se produjo una exepcion");
+            return JsonResponse::create("Se produjo una excepción.");
         }
     }
 
@@ -100,9 +100,9 @@ class DirectorController extends Controller
             $director->activo = 0;
             $director->save();
             $usuario->save();
-            return JsonResponse::create('Director inhabilitado');
+            return JsonResponse::create('Director inhabilitado.');
         }else{
-            return JsonResponse::create('El conductor no existe');
+            return JsonResponse::create('El director no existe.');
         }
     }
 
