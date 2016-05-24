@@ -27,7 +27,7 @@ class GrupoController extends Controller
     public function post(Request $request){
         $data = $request->json()->all();
         if($this->get($data['codigo'])){
-            return JsonResponse::create('Ya existe un grupo con este código');
+            return JsonResponse::create(array('estado'=>'false','mensaje'=>'Ya existe un grupo con este código'));
         }else{
                 $grupo = new Grupo($data);
                 //$data['usuario_id'] = $grupo->id;
@@ -35,11 +35,11 @@ class GrupoController extends Controller
                 if($grupo->save()){
                     if ($grupo){
                         //Usuario::addRol($grupo->id, $this->getRol('DIRECTOR')->id);
-                        return JsonResponse::create('Se creó el grupo correctamente.');
+                        return JsonResponse::create(array('estado'=>'true','mensaje'=>'Se creó el grupo correctamente.'));
                     }else{
                         $grupo->delete();
                         //$director->delete();
-                        return JsonResponse::create('Ocurrió un error al guardar los datos.');
+                        return JsonResponse::create(array('estado'=>'false','mensaje'=>'Ocurrió un error al guardar los datos.'));
                     }
                 }
 
