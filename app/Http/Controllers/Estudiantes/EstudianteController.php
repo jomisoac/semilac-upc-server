@@ -39,7 +39,7 @@ class EstudianteController extends Controller
                     if ($estudiante->save()) {
                         if ($usuario) {
                             $this->addRol($usuario);
-                            return JsonResponse::create('Registro exitoso, seras redireccionado a la página de inicio sesión.');
+                            return JsonResponse::create('Se registró correctamente, seras redireccionado a la página de inicio sesión.');
                         } else {
                             $estudiante->delete();
                             $usuario->delete();
