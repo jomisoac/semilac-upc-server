@@ -13,13 +13,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TutoresController extends Controller
 {
-    public function getAll(){
-        return Tutor::all();
+
+    public function getAll() {
+        return Tutor::where('activo', '!=', 0)->get();
     }
-    public function get($id)
-    {
+
+    public function get($id) {
         return $tutor = Tutor::find($id);
     }
+
 
     function getUsuario($email)
     {
@@ -73,4 +75,6 @@ class TutoresController extends Controller
     {
         return Rol::where('nombre', $nombre)->first();
     }
+
+
 }

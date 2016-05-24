@@ -11,7 +11,7 @@ class Tutor extends Model
     public  $timestamps = false;
 
     public $fillable = ['identificacion', 'nombres', 'apellidos', 'tipo_documento','sexo', 'fecha_expedicion', 'fecha_nacimiento',
-                        'direccion','celular','email_personal','email','pass', 'usuario_id'];
+                        'cvlac','direccion','celular','email_personal','email','pass', 'usuario_id'];
     
     public function usuario()
     {
