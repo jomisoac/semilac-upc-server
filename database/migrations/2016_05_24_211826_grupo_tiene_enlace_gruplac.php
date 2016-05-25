@@ -24,6 +24,8 @@ class GrupoTieneEnlaceGruplac extends Migration
      */
     public function down()
     {
-        $table->dropColumn('enlace');
+        Schema::table('grupos', function (Blueprint $table) {
+            $table->dropColumn('enlace');
+        });
     }
 }

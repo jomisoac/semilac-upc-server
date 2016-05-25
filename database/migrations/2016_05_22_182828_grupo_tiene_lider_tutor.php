@@ -31,7 +31,9 @@ class GrupoTieneLiderTutor extends Migration
      */
     public function down()
     {
-        $table->dropColumn('tutor_id');
-        $table->string('lider');
+        Schema::table('grupos', function (Blueprint $table) {
+            $table->dropColumn('tutor_id');
+            $table->string('lider');
+        });
     }
 }
