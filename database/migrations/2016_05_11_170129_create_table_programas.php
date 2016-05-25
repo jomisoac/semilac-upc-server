@@ -6,66 +6,78 @@ use Illuminate\Database\Migrations\Migration;
 class CreateTableProgramas extends Migration
 {
     /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    * Run the migrations.
+    *
+    * @return void
+    */
     public function up()
     {
         Schema::create('programas', function(Blueprint $table){
             $table->increments('id');
             $table->string('nombre');
         });
-
+        
         DB::table('programas')->insert([
-            'nombre' => 'Ingeniería de sistemas'
+        'nombre' => 'Administración de Empresas'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Ingeniería electronica'
+        'nombre' => 'Comercio Internacional'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Ingeniería ambiental y sanitaria'
+        'nombre' => 'Contaduría Pública'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Ingeniería agroindustrial'
+        'nombre' => 'Derecho'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'DERECHO'
+        'nombre' => 'Economía'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Licenciatura en ciencias naturales'
+        'nombre' => 'Enfermería Superior'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'LICENCIATURA en matematicas y fisica'
+        'nombre' => 'Ingeniería Agroindustrial'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Licenciatura en idiomas'
+        'nombre' => 'Ingeniería Ambiental y Sanitaria'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Administración de empresas'
+        'nombre' => 'Ingeniería de Sistemas'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Contaduría'
+        'nombre' => 'Ingeniería Electrónica'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Economía'
+        'nombre' => 'Instrumentación Quirúrgica'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Enfermería superior'
+        'nombre' => 'Licenciatura en Arte, Folclor y Cultura'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Psicología'
+        'nombre' => 'Licenciatura en Ciencias Naturales y Educación Ambiental'
         ]);
         DB::table('programas')->insert([
-            'nombre' => 'Sociología'
+        'nombre' => 'Licenciatura en Lengua Castellana e Inglés'
+        ]);
+        DB::table('programas')->insert([
+        'nombre' => 'Licenciatura en Matemáticas y Física'
+        ]);
+        DB::table('programas')->insert([
+        'nombre' => 'Microbiología'
+        ]);
+        DB::table('programas')->insert([
+        'nombre' => 'Psicología'
+        ]);
+        DB::table('programas')->insert([
+        'nombre' => 'Sociología'
         ]);
     }
-
+    
     /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    * Reverse the migrations.
+    *
+    * @return void
+    */
     public function down()
     {
         Schema::drop('programas');
