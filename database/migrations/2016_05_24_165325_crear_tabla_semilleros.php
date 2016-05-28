@@ -16,10 +16,7 @@ class CrearTablaSemilleros extends Migration {
             $table->integer('programa_id')->unsigned();
             $table->integer('grupo_id')->unsigned();
             $table->string('nombre');
-            $table->string('nombre_linea');
-            $table->string('objetivo_linea');
-            $table->string('logro_linea');
-            $table->string('efecto_linea');
+            $table->integer('linea_id')->unsigned();
             $table->string('mision');
             $table->string('vision');
             $table->string('objetivo_general');
@@ -34,6 +31,7 @@ class CrearTablaSemilleros extends Migration {
             $table->foreign('programa_id')->references('id')->on('programas');
             $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->foreign('tutor_id')->references('id')->on('tutores');
+            $table->foreign('linea_id')->references('id')->on('lineas');
         });
     }
 
