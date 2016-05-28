@@ -14,9 +14,8 @@ class CrearTablaSemilleros extends Migration {
         Schema::create('semilleros', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('programa_id')->unsigned();
-            $table->integer('grupo_id')->unsigned();
+            $table->integer('grupo_id')->unsigned()->nullable();
             $table->string('nombre');
-            $table->integer('linea_id')->unsigned();
             $table->string('mision');
             $table->string('vision');
             $table->string('objetivo_general');
@@ -31,7 +30,6 @@ class CrearTablaSemilleros extends Migration {
             $table->foreign('programa_id')->references('id')->on('programas');
             $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->foreign('tutor_id')->references('id')->on('tutores');
-            $table->foreign('linea_id')->references('id')->on('lineas');
         });
     }
 

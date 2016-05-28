@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Semillero;
 
 use App\Models\Semillero;
 use App\Models\Tutor;
+use App\Models\SemillerosSolicitanGrupos;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -37,9 +38,15 @@ class SemilleroController extends Controller {
     }*/
     public function post(Request $request) {
         $data = $request->json()->all();
+         $grupo_id = $data['grupo_id']; 
+         unset($data['grupo_id']);
         $semillero = new Semillero($data);
         if ($semillero->save()) {
             if ($semillero) {
+                $solicitud = new SemillerosSolicitanGrupos();
+                $solicitud->semillero_id = $semillero->id;
+                $solicitud->grupo_id = $grupo_id;
+                $solicitud->save();
                 return JsonResponse::create('Se creó el semillero correctamente.');
             } else {
                 $semillero->delete();
