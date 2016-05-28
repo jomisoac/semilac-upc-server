@@ -6,8 +6,7 @@ class Semillero extends Model
 {
     public $table = 'semilleros';
     public  $timestamps = false;
-    public $fillable = ['programa_id','grupo_id','nombre','nombre_linea',
-        'objetivo_linea','logro_linea','efecto_linea','mision','vision',
+    public $fillable = ['programa_id','grupo_id','nombre','mision','vision',
         'objetivo_general','objetivo_uno','objetivo_dos','objetivo_tres',
         'estrategia_uno','estrategia_dos','estrategia_tres','tutor_id','activo'];
 

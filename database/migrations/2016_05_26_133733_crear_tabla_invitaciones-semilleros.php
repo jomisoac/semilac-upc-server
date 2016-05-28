@@ -6,10 +6,10 @@ use Illuminate\Database\Migrations\Migration;
 class CrearTablaInvitacionesSemilleros extends Migration
 {
     /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    * Run the migrations.
+    *
+    * @return void
+    */
     public function up()
     {
         Schema::create('invitaciones-semilleros', function (Blueprint $table) {
@@ -21,12 +21,12 @@ class CrearTablaInvitacionesSemilleros extends Migration
             $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
-
+    
     /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    * Reverse the migrations.
+    *
+    * @return void
+    */
     public function down()
     {
         Schema::drop('invitaciones-semilleros');
