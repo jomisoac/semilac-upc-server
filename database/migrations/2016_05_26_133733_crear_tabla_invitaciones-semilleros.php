@@ -16,9 +16,9 @@ class CrearTablaInvitacionesSemilleros extends Migration
             $table->increments('id');
             $table->integer('tutor_id')->unsigned();
             $table->integer('estudiante_id')->unsigned();
-            $table->boolean('estado')->default('enviado', 'aceptado', 'rechazado');
+            $table->boolean('estado')->default(1);
             $table->foreign('tutor_id')->references('id')->on('tutores');
-            $table->foreign('estudiante_id')->references('id')->on('estudiante')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
