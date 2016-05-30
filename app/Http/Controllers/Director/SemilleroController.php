@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Semillero;
+namespace App\Http\Controllers\Director;
 
 use App\Models\Semillero;
 use App\Models\Tutor;

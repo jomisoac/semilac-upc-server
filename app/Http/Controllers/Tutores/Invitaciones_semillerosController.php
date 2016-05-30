@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Invitaciones_semsillero;
+namespace App\Http\Controllers\Tutores;
 
 use App\Models\Invitacion;
 use Illuminate\Http\Request;
