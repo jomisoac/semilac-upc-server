@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estudiante;
 use App\Models\Rol;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -11,13 +12,7 @@ use App\Http\Requests;
 class PruebasController extends Controller
 {
     public function index(){
-        $usuario = $this->createUser('yo', '1234');
-        if($usuario){
-            $rol_usuario = $this->addRol($usuario);
-        }else{
-            return $usuario;
-        }
-        return $rol_usuario;
+        return $datos = Estudiante::all()->load('proyectos');
     }
 
     private function addRol($usuario)

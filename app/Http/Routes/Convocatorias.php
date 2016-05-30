@@ -1,5 +1,5 @@
 <?php
 
-Route::get('convocatorias', 'Convocatorias\ConvocatoriasController@getAll');
-Route::post('convocatorias', 'Convocatorias\ConvocatoriasController@post');
-Route::post('convocatorias/{id}/acta', 'Convocatorias\ConvocatoriasController@guardarArchivo');
+Route::get('convocatorias', 'Director\ConvocatoriasController@getAll');
+Route::post('convocatorias', 'Director\ConvocatoriasController@post');
+Route::post('convocatorias/{id}/acta', 'Director\ConvocatoriasController@guardarArchivo');

@@ -6,6 +6,7 @@
  */
 namespace App\Models;
 
+use App\Models\Proyectos;
 use Illuminate\Database\Eloquent\Model;
 
 class Estudiante extends Model
@@ -29,5 +30,10 @@ class Estudiante extends Model
     public function programa()
     {
         return $this->belongsTo(Programa::class);
+    }
+    
+    public function proyectos()
+    {
+        return $this->belongsToMany(Proyectos::class);
     }
 }
