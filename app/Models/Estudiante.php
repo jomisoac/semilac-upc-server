@@ -13,15 +13,15 @@ class Estudiante extends Model
 {
     public $table = 'estudiantes';
 
-    public  $timestamps = false;
+    public $timestamps = false;
 
     public $fillable = ['usuario_id', 'identificacion', 'nombres', 'apellidos',
         'sexo', 'fecha_nacimiento', 'lugar_expedicion', 'lugar_nacimiento',
         'estado_civil', 'direccion', 'telefono', 'activo', 'universidad',
-        'programa_id', 'n_semestre', 'fecha_expedicion' ];
+        'programa_id', 'n_semestre', 'fecha_expedicion'];
 
     protected $guarded = ['id'];
-    
+
     public function usuario()
     {
         return $this->belongsTo(Usuario::class);
@@ -31,9 +31,14 @@ class Estudiante extends Model
     {
         return $this->belongsTo(Programa::class);
     }
-    
+
     public function proyectos()
     {
         return $this->belongsToMany(Proyectos::class);
+    }
+
+    public function proyectoActivo()
+    {
+        return $this->belongsToMany(Proyectos::class)->where('activo', 1);
     }
 }
