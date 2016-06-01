@@ -1,2 +1,2 @@
 <?php
-Route::post('invitaciones-semilleros', 'Invitacion\Invitaciones_semilleroController@post');
+Route::post('invitaciones-semilleros', 'Tutores\Invitaciones_semilleroController@post');

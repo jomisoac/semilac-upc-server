@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Estudiante_solicita_semillero;
+namespace App\Http\Controllers\Estudiantes;
 
 use App\Models\EstudianteSolicitaSemillero;
 use App\Models\Rol;
