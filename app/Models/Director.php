@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Director extends Model
 {
     public $table = 'directores';
-
+    
     public  $timestamps = false;
-
-    public $fillable = ['identificacion', 'nombres', 'apellidos', 'fechaIngreso', 'usuario_id'];
+    
+    public $fillable = ['tipo_documento', 'identificacion', 'nombres', 'apellidos', 'fechaIngreso', 'usuario_id'];
     
     public function usuario()
     {
