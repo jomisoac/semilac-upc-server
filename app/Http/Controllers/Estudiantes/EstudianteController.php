@@ -20,17 +20,29 @@ class EstudianteController extends Controller
         return $estudiante = Estudiante::find($id);
     }
 
-    public function estudiantesDisponibles($mi_id)
+    public function estudiantesDisponibles($mi_id = null)
     {
         $estudiantes = array();
-        $datos = Estudiante::where('id', '!=', $mi_id)->get();
-        $datos->load('proyectos', 'programa');
-        foreach ($datos as $estudiante) {
-            if (sizeof($estudiante->proyectos) == 0) {
-                array_push($estudiantes, $estudiante);
-            } else {
+        if($mi_id){
+            $datos = Estudiante::where('id', '!=', $mi_id)->get();
+            $datos->load('proyectos', 'programa');
+            foreach ($datos as $estudiante) {
+                if (sizeof($estudiante->proyectos) == 0) {
+                    array_push($estudiantes, $estudiante);
+                } else {
+                }
+            }
+        }else{
+            $datos = Estudiante::all();
+            $datos->load('proyectos', 'programa');
+            foreach ($datos as $estudiante) {
+                if (sizeof($estudiante->proyectos) == 0) {
+                    array_push($estudiantes, $estudiante);
+                } else {
+                }
             }
         }
+
         return $estudiantes;
     }
 
