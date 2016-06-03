@@ -10,7 +10,7 @@ class Semillero extends Model
         'objetivo_general','objetivo_uno','objetivo_dos','objetivo_tres',
         'estrategia_uno','estrategia_dos','estrategia_tres','tutor_id','activo'];
 
-    public function tutores()
+    public function tutor()
     {
         return $this->belongsTo(Tutor::class);
     }

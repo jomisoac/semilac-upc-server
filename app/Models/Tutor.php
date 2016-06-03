@@ -21,4 +21,9 @@ class Tutor extends Model
     {
         return $this->hasOne(Grupo::class);
     }
+
+    public function semilleros()
+    {
+        return $this->hasMany(Semillero::class);
+    }
 }
