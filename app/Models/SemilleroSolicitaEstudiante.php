@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Models\Estudiante;
 use App\Models\Semillero;
 use Illuminate\Database\Eloquent\Model;
 
-class Semillero_solicita_estudiante extends Model
+class SemilleroSolicitaEstudiante extends Model
 {
     public $table = 'semillero_solicita_estudiante';
 
