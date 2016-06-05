@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Director;
+namespace App\Http\Controllers\Tutores;
 
 use App\Models\Semillero;
 use App\Models\Tutor;
@@ -17,13 +17,17 @@ class SemilleroController extends Controller {
     }
     
     public function getTutor(){
-        $dato = Semillero::where('activo', '!=', 0)->get();
+        $dato = Semillero::where('activo', '!=', 0);
         $dato->load('tutor');
         return $dato;
     }
 
     public function get($id) {
         return $semillero = Semillero::find($id);
+    }
+    
+    public function get_by_tutor($tutor_id){
+        return $semillero = Semillero::where('tutor_id',$tutor_id)->get();
     }
 /*
     public function post(Request $request){
