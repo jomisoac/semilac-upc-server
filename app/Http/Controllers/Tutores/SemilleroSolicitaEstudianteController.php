@@ -16,6 +16,13 @@ class SemilleroSolicitaEstudianteController extends Controller
     public function getAll(){
         return SemilleroSolicitaEstudiante::all();
     }
+
+    public function get_by_estudiante($estudiante_id)
+    {
+        $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id', $estudiante_id)
+            ->with(['semillero', 'semillero.tutor'])->get();
+        return $solicitudes;
+    }
     
     public function get($id){
         return $solicitud = SemilleroSolicitaEstudiante::find($id);
