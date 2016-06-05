@@ -16,28 +16,28 @@ class SemilleroSolicitaEstudianteController extends Controller
     public function getAll(){
         return SemilleroSolicitaEstudiante::all();
     }
-
+    
     public function get($id){
         return $solicitud = SemilleroSolicitaEstudiante::find($id);
     }
-
+    
     function getUsuario($email){
         return Usuario::where('email', $email)->first();
     }
-
+    
     public function post(Request $request){
         $data = $request->json()->all();
         //var_dump($request);
         $solicitud = new SemilleroSolicitaEstudiante();
         $solicitud->estudiante_id = $data['estudiante_id'];
         $solicitud->semillero_id = $data['semillero_id'];
-
+        
         if($solicitud->save()){
             if ($solicitud){
                 //$this->guardarArchivo($request, $convocatoria->id);
                 $respuesta = array(
-                    'mensaje' => 'Envio corréctamente la solicitud.',
-                    'solicitud' => $solicitud
+                'mensaje' => 'Envio corréctamente la solicitud.',
+                'solicitud' => $solicitud
                 );
                 return JsonResponse::create($respuesta);
             }else{
