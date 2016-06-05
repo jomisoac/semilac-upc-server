@@ -23,4 +23,10 @@ class Semillero extends Model
     {
         return $this->belongsTo(Grupo::class);
     }
+
+    public function semilleroSolicitaEstudiante()
+    {
+        return $this->hasOne(SemilleroSolicitaEstudiante::class);
+    }
+
 }

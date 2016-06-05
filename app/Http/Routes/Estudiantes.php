@@ -16,6 +16,6 @@ Route::delete('/estudiantes/{estudiante_id}', 'Estudiantes\EstudiantesController
 Route::post('/estudiantes/nuevo_proyecto', 'Estudiantes\EstudianteController@createProyecto');
 
 //solicitudes
-Route::get('solicitud-semilleros', 'Estudiantes\EstudianteSolicitaSemilleroController@estudiantesDisponibles');
-Route::post('solicitud-semilleros','Estudiantes\EstudianteSolicitaSemilleroController@post');
+Route::get('estudiantes/{estudiante_id}/invitaciones-de-semilleros', 'Tutores\SemilleroSolicitaEstudianteController@get_by_estudiante');
+Route::post('solicitudes-semilleros','Estudiantes\EstudianteSolicitaSemilleroController@post');
 

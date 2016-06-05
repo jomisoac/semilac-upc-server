@@ -17,6 +17,11 @@ class SemilleroSolicitaEstudianteController extends Controller
         return SemilleroSolicitaEstudiante::all();
     }
 
+    public function get_by_estudiante($estudiante_id) {
+        $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id', $estudiante_id)
+            ->with(['semillero', 'semillero.tutor'])->get();
+        return $solicitudes;
+    }
     public function get($id){
         return $solicitud = SemilleroSolicitaEstudiante::find($id);
     }
@@ -49,5 +54,28 @@ class SemilleroSolicitaEstudianteController extends Controller
     private function getRol($nombre)
     {
         return Rol::where('nombre', $nombre)->first();
+    }
+
+    public function put(Request $request, $id) {
+        try {
+            $data = $request->json()->all();
+            $solicitud = $this->get($id);
+
+            if ($solicitud) {
+//                actualizar los requisitos
+                foreach ($data as $campo => $valor) {
+                    $solicitud->$campo = $valor;
+                }
+                if ($solicitud->save()) {
+                    return JsonResponse::create('Solicitud actualizado correctamente');
+                } else {
+                    return JsonResponse::create('No se pudo actualizar la solicitud');
+                }
+            } else {
+                return JsonResponse::create('la solicitud que desea modificar no existe');
+            }
+        } catch (Exception $e) {
+            return JsonResponse::create("Se produjo una exepcion");
+        }
     }
 }

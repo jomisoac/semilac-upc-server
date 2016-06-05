@@ -15,15 +15,16 @@ class SemilleroSolicitaEstudiante extends Model
     public $fillable = ['estudiante_id','semillero_id','respuesta','activo'];
 
     protected $guarded = ['id'];
+    
 
     public function estudiante()
-    {
-        return $this->hasOne(Estudiante::class);
+    {        
+        return $this->belongsTo(Estudiante::class);
     }
 
     public function semillero()
-    {
-        return $this->hasOne(Semillero::class);
+    {       
+        return $this->belongsTo(Semillero::class);
     }
 
 }

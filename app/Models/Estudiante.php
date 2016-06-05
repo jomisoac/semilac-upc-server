@@ -31,6 +31,11 @@ class Estudiante extends Model
     {
         return $this->belongsTo(Programa::class);
     }
+
+    public function invitaciones_de_semilleros()
+    {
+        return $this->hasMany(SemilleroSolicitaEstudiante::class);
+    }
     
     public function proyectos()
     {

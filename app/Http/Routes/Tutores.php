@@ -7,6 +7,8 @@ Route::get('tutores/{tutor_id}', 'Tutores\TutoresController@get');
 //Route::delete('requisitos/{tutor_id}', 'Tutores\TutoresController@delete');
 
 //solicitudes de semillero solicita estudiante
-Route::get('semillero_solicita_estudiante', 'Tutores\SemilleroSolicitaEstudianteController@estudiantesDisponibles');
+Route::get('semillero_solicita_estudiante', 'Tutores\SemilleroSolicitaEstudianteController@getAll');
 Route::post('semillero_solicita_estudiante','Tutores\SemilleroSolicitaEstudianteController@post');
+Route::put('semillero_solicita_estudiante/{tutor_id}','Tutores\SemilleroSolicitaEstudianteController@put');
+
 
