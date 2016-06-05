@@ -12,4 +12,8 @@ class Grupo extends Model
     
     public $fillable = ['codigo', 'nombre', 'tutor_id', 'clasificacion', 'usuario_id', 'gruplac'];
     
+    public function solicitudes_de_semilleros()
+    {
+        return $this->hasMany(SemillerosSolicitanGrupos::class);
+    }
 }

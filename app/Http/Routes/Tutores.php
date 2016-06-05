@@ -12,3 +12,6 @@ Route::post('semillero_solicita_estudiante','Tutores\SemilleroSolicitaEstudiante
 Route::put('semillero_solicita_estudiante/{tutor_id}','Tutores\SemilleroSolicitaEstudianteController@put');
 
 
+//solicitudes a mis grupos
+Route::get('solicitudes-mis-grupos/{tutor_id}','Tutores\SolicitudesMisGruposController@getAll');
+Route::put('solicitudes-mis-grupos/{invitacion_id}', 'Tutores\SolicitudesMisGruposController@responder_invitacion');
