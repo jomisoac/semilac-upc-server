@@ -16,7 +16,8 @@ class TutoresController extends Controller
 
     public function getAll() {
         return Tutor::where('activo', '!=', 0)->get();
-    }
+    } 
+    
 
     public function get($id) {
         return $tutor = Tutor::find($id);

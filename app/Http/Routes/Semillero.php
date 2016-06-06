@@ -1,8 +1,9 @@
 <?php
 
-Route::get('semilleros', 'Semillero\SemilleroController@getAll');
-Route::get('semilleros/{id}', 'Semillero\SemilleroController@get');
-Route::post('semilleros', 'Semillero\SemilleroController@post');
-Route::put('semilleros/{id}', 'Semillero\SemilleroController@put');
-Route::delete('semilleros/{id}', 'Semillero\SemilleroController@delete');
-
+Route::get('semilleros', 'Tutores\SemilleroController@getAll');
+//tutores de cada semillero
+Route::get('semilleros/tutores', 'Tutores\SemilleroController@getTutor');
+Route::get('semilleros/{id}', 'Tutores\SemilleroController@get');
+Route::post('semilleros', 'Tutores\SemilleroController@post');
+Route::put('semilleros/{id}', 'Tutores\SemilleroController@put');
+Route::delete('semilleros/{id}', 'Tutores\SemilleroController@delete');

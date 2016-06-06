@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Convocatorias;
+namespace App\Http\Controllers\Director;
 
 use App\Models\Convocatoria;
 use App\Models\Rol;

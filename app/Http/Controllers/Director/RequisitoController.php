@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Requisito;
+namespace App\Http\Controllers\Director;
 
 use App\Models\Requisito;
 use Illuminate\Http\Request;
