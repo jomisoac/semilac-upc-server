@@ -17,22 +17,22 @@ class EstudianteSolicitaSemilleroController extends Controller
     public function getAll($id)
     {
         $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id', $id)
-            ->with('estudiante', 'semillero')->get();
+        ->with('estudiante', 'semillero')->get();
         return $solicitudes;
-
+        
     }
     
-
+    
     public function get($id)
     {
         return $solicitud = EstudianteSolicitaSemillero::find($id);
     }
-
+    
     function getUsuario($email)
     {
         return Usuario::where('email', $email)->first();
     }
-
+    
     public function post(Request $request)
     {
         $data = $request->json()->all();
@@ -40,13 +40,13 @@ class EstudianteSolicitaSemilleroController extends Controller
         $solicitud = new EstudianteSolicitaSemillero();
         $solicitud->estudiante_id = $data['estudiante_id'];
         $solicitud->semillero_id = $data['semillero_id'];
-
+        
         if ($solicitud->save()) {
             if ($solicitud) {
                 //$this->guardarArchivo($request, $convocatoria->id);
                 $respuesta = array(
-                    'mensaje' => 'Envio corréctamente la solicitud.',
-                    'solicitud' => $solicitud
+                'mensaje' => 'Se envió correctamente la solicitud.',
+                'solicitud' => $solicitud
                 );
                 return JsonResponse::create($respuesta);
             } else {
@@ -55,8 +55,8 @@ class EstudianteSolicitaSemilleroController extends Controller
             }
         }
     }
-
-
+    
+    
     private function getRol($nombre)
     {
         return Rol::where('nombre', $nombre)->first();
