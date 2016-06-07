@@ -20,7 +20,7 @@ class SemilleroSolicitaEstudianteController extends Controller
 
     public function get_by_estudiante($estudiante_id)
     {
-        $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id', $estudiante_id)
+        $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id', $estudiante_id) ->where                  ('respuesta','en espera')
             ->with(['semillero', 'semillero.tutor'])->get();
         return $solicitudes;
     }
