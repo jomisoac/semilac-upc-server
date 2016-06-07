@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class SemilleroController extends Controller {
 
     public function getAll() {
-        return Semillero::where('activo', '!=', 0)->get();
+        return Semillero::where('activo', '!=', 0)->with('programa', 'grupo', 'tutor')->get();
     }
     
     public function getTutor(){
