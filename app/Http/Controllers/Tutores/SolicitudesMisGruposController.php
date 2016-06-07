@@ -8,6 +8,7 @@ use App\Models\Usuario;
 use App\Models\SemillerosSolicitanGrupos;
 use App\Models\Grupo;
 use App\Models\Tutor;
+use App\Models\Semillero;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Psy\Util\Json;
@@ -38,7 +39,21 @@ class SolicitudesMisGruposController extends Controller
             if ($solicitud) {
                 $solicitud->fill($data);
                 if ($solicitud->save()) {
-                    return JsonResponse::create('La solicitud ha sido respondida.');
+                    //Si respondió la solicitud como 'aceptada', debe actualizar el grupo_id del semillero.
+                    if ($solicitud->respuesta == 'aceptada') {
+                        $semillero = Semillero::find($solicitud->semillero_id);
+                        $semillero->grupo_id = $solicitud->grupo_id;
+                        if ($semillero->save()) {
+                            //Si pudo actualizar el grupo_id del semillero.
+                            return JsonResponse::create('La solicitud ha sido respondida.');
+                        } else {
+                            //Si no se pudo actualizar el grupo_id del semillero...
+                            //...es necesario deshacer la operación: dejar la solicitud 'en espera'.
+                            $solicitud->respuesta = 'en espera';
+                            $solicitud->save();
+                            return JsonResponse::create('No se pudo responder la solicitud.');
+                        }
+                    }
                 } else {
                     return JsonResponse::create('No se pudo responder la solicitud.');
                 }

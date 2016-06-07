@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Estudiantes;
 
 use App\Models\EstudianteSolicitaSemillero;
+use App\Models\SemilleroSolicitaEstudiante;
 use App\Models\Rol;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -17,20 +18,20 @@ class EstudianteSolicitaSemilleroController extends Controller
     {
         $solicitudes = EstudianteSolicitaSemillero::all();
         return $solicitudes;
-
+        
     }
     
-
+    
     public function get($id)
     {
         return $solicitud = EstudianteSolicitaSemillero::find($id);
     }
-
+    
     function getUsuario($email)
     {
         return Usuario::where('email', $email)->first();
     }
-
+    
     public function post(Request $request)
     {
         $data = $request->json()->all();
@@ -38,13 +39,13 @@ class EstudianteSolicitaSemilleroController extends Controller
         $solicitud = new EstudianteSolicitaSemillero();
         $solicitud->estudiante_id = $data['estudiante_id'];
         $solicitud->semillero_id = $data['semillero_id'];
-
+        
         if ($solicitud->save()) {
             if ($solicitud) {
                 //$this->guardarArchivo($request, $convocatoria->id);
                 $respuesta = array(
-                    'mensaje' => 'Envio corréctamente la solicitud.',
-                    'solicitud' => $solicitud
+                'mensaje' => 'Se envió correctamente la solicitud.',
+                'solicitud' => $solicitud
                 );
                 return JsonResponse::create($respuesta);
             } else {
