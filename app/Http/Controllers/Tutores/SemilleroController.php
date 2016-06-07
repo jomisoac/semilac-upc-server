@@ -11,9 +11,15 @@ use App\Http\Requests;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SemilleroController extends Controller {
-
+    
     public function getAll() {
         return Semillero::where('activo', '!=', 0)->with('programa', 'grupo', 'tutor')->get();
+    }
+    
+    public function get_by_tutor($tutor_id) {
+        return Semillero::where('activo', '!=', 0)
+        ->where('tutor_id', $tutor_id)
+        ->with('programa', 'grupo')->get();
     }
     
     public function getTutor(){
@@ -21,7 +27,7 @@ class SemilleroController extends Controller {
         $dato->load('tutor');
         return $dato;
     }
-
+    
     public function get($id) {
         return $semillero = Semillero::find($id);
     }
@@ -48,8 +54,8 @@ class SemilleroController extends Controller {
     }*/
     public function post(Request $request) {
         $data = $request->json()->all();
-         $grupo_id = $data['grupo_id']; 
-         unset($data['grupo_id']);
+        $grupo_id = $data['grupo_id'];
+        unset($data['grupo_id']);
         $semillero = new Semillero($data);
         if ($semillero->save()) {
             if ($semillero) {
@@ -65,7 +71,6 @@ class SemilleroController extends Controller {
         }
     }
     
-
     public function put(Request $request, $id) {
         try {
             $data = $request->json()->all();
@@ -86,7 +91,7 @@ class SemilleroController extends Controller {
             return JsonResponse::create("Se produjo una exepcion");
         }
     }
-
+    
     //ESTE METODO NO ELMINA, SOLO DESACTIVA
     public function delete($id) {
         $semillero = $this->get($id);
@@ -99,4 +104,3 @@ class SemilleroController extends Controller {
         }
     }
 }
-
