@@ -14,45 +14,49 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EstudianteSolicitaSemilleroController extends Controller
 {
-    public function getAll($id){        
-        $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id',$id)
-                        ->with('estudiante','semillero')->get();
+    public function getAll($id)
+    {
+        $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id', $id)
+        ->with('estudiante', 'semillero')->get();
         return $solicitudes;
-
+        
     }
-
-    public function get($id){
+    
+    
+    public function get($id)
+    {
         return $solicitud = EstudianteSolicitaSemillero::find($id);
     }
-
-    function getUsuario($email){
+    
+    function getUsuario($email)
+    {
         return Usuario::where('email', $email)->first();
     }
-
-    public function post(Request $request){
+    
+    public function post(Request $request)
+    {
         $data = $request->json()->all();
         //var_dump($request);
         $solicitud = new EstudianteSolicitaSemillero();
         $solicitud->estudiante_id = $data['estudiante_id'];
         $solicitud->semillero_id = $data['semillero_id'];
-
-        if($solicitud->save()){
-            if ($solicitud){
+        
+        if ($solicitud->save()) {
+            if ($solicitud) {
                 //$this->guardarArchivo($request, $convocatoria->id);
                 $respuesta = array(
-                    'mensaje' => 'Envio corréctamente la solicitud.',
-                    'solicitud' => $solicitud
+                'mensaje' => 'Se envió correctamente la solicitud.',
+                'solicitud' => $solicitud
                 );
                 return JsonResponse::create($respuesta);
-            }else{
+            } else {
                 $solicitud->delete();
                 return JsonResponse::create('Ocurrió un error al guardar los datos.');
             }
         }
     }
-
-
-
+    
+    
     private function getRol($nombre)
     {
         return Rol::where('nombre', $nombre)->first();
