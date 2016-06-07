@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Estudiantes;
 
 use App\Models\EstudianteSolicitaSemillero;
-use App\Models\SemilleroSolicitaEstudiante;
 use App\Models\Rol;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -14,10 +13,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EstudianteSolicitaSemilleroController extends Controller
 {
-    public function getAll($id)
+    public function getAll()
     {
-        $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id', $id)
-            ->with('estudiante', 'semillero')->get();
+        $solicitudes = EstudianteSolicitaSemillero::all();
         return $solicitudes;
 
     }
