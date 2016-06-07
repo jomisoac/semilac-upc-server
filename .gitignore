@@ -10,3 +10,7 @@ env
 .idea
 /nbproject
 /public/archivos
+/pelotasrebotando/nbproject/private/
+/polinomio/nbproject/private/
+/ServerRmi/nbproject/private/
+/ClienteRmi/nbproject/private/
