@@ -24,6 +24,11 @@ class ConvocatoriasController extends Controller
     function getUsuario($email){
         return Usuario::where('email', $email)->first();
     }
+    
+    public function get_convocatoria_abierta(){
+        $hoy = date("y/m/d");
+        return Convocatoria::where('fechainicial', '<=', $hoy)->where('fechafinal', '>=', $hoy)->get();
+    }
 
     public function post(Request $request){
         $data = $request->json()->all();

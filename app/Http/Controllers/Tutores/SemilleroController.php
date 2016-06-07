@@ -32,9 +32,7 @@ class SemilleroController extends Controller {
         return $semillero = Semillero::find($id);
     }
     
-    public function get_by_tutor($tutor_id){
-        return $semillero = Semillero::where('tutor_id',$tutor_id)->get();
-    }
+   
 /*
     public function post(Request $request){
         $data = $request->json()->all();
