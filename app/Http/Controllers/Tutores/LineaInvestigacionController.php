@@ -9,7 +9,7 @@ use App\Http\Requests;
 use Mockery\CountValidator\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class Linea_investigacionController extends Controller
+class LineaInvestigacionController extends Controller
 {
 
     public function getAll()
