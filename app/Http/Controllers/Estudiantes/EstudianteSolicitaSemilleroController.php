@@ -14,10 +14,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EstudianteSolicitaSemilleroController extends Controller
 {
-    public function getAll($id)
+    public function getAll()
     {
-        $solicitudes = SemilleroSolicitaEstudiante::where('estudiante_id', $id)
-        ->with('estudiante', 'semillero')->get();
+        $solicitudes = EstudianteSolicitaSemillero::all();
         return $solicitudes;
         
     }
@@ -55,8 +54,8 @@ class EstudianteSolicitaSemilleroController extends Controller
             }
         }
     }
-    
-    
+
+
     private function getRol($nombre)
     {
         return Rol::where('nombre', $nombre)->first();
