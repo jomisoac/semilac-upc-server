@@ -27,7 +27,7 @@ class ConvocatoriasController extends Controller
     
     public function get_convocatoria_abierta(){
         $hoy = date("y/m/d");
-        return Convocatoria::where('fechainicial', '<=', $hoy)->where('fechafinal', '>=', $hoy)->get();
+        return Convocatoria::where('fechainicial', '<=', $hoy)->where('fechafinal', '>=', $hoy)->first();
     }
 
     public function post(Request $request){

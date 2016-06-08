@@ -19,3 +19,5 @@ Route::get('tutores/{tutor_id}/grupo', 'Director\GrupoController@get_by_tutor');
 
 //Un tutor tiene varios semilleros
 Route::get('tutores/{tutor_id}/semilleros', 'Tutores\SemilleroController@get_by_tutor');
+
+Route::post('solicitud-aval-convocatoria', 'Tutores\SolicitudAvalConvocatoriaController@post');
