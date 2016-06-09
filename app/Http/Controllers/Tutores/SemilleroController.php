@@ -23,7 +23,7 @@ class SemilleroController extends Controller {
     }
     
     public function getTutor(){
-        $dato = Semillero::where('activo', '!=', 0);
+        $dato = Semillero::where('activo', '!=', 0)->get();
         $dato->load('tutor');
         return $dato;
     }
