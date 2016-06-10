@@ -17,7 +17,7 @@ Route::group(['middleware' => 'cors'], function ()
     Route::post('/api/login', 'Auth\LoginController@autenticarUsuario');
     Route::get('/api/new_token', 'Auth\LoginController@refreshToken');
 
-    Route::group(['middleware' => 'jwt.auth'], function () {
+    //Route::group(['middleware' => 'jwt.auth'], function () {
         Route::group(['prefix' => 'api'], function()
         {
             // Agrega automaticamente los archivos php dentro de la carpeta Routes.
@@ -27,5 +27,5 @@ Route::group(['middleware' => 'cors'], function ()
                 include_once $filename;
             }
         });
-    });
+    //});
 });
