@@ -28,7 +28,7 @@ class LineaInvestigacionController extends Controller
         $linea = new Linea($data);
         if ($linea->save()) {
             if ($linea) {
-                return JsonResponse::create('Se creo la línea correctamente.');
+                return JsonResponse::create('Se creó la línea correctamente.');
             } else {
                 $linea->delete();
                 return JsonResponse::create('Ocurrió un error al guardar los datos.');
