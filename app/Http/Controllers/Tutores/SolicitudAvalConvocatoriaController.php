@@ -26,6 +26,7 @@ class SolicitudAvalConvocatoriaController extends Controller
         $solicitud = new SolicitudAvalConvocatoria();
         $solicitud->convocatoria_id = $data['convocatoria_id'];
         $solicitud->semillero_id = $data['semillero_id'];
+        $solicitud->tutor_id = $data['tutor_id'];
 
         if($solicitud->save()){
             if ($solicitud){
