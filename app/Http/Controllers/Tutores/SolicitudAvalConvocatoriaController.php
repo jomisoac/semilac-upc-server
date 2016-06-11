@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Tutores;
 
 use Illuminate\Http\Request;
-use App\Models\SolicitudAvalConvocatoria;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Psy\Util\Json;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Illuminate\Http\JsonResponse;
+use App\Models\SolicitudAvalConvocatoria;
 
 class SolicitudAvalConvocatoriaController extends Controller
 {
