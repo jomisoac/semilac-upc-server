@@ -5,4 +5,4 @@
  * Time: 12:57 PM
  */
 
-Route::get('/programas', 'Programas\ProgramaController@getAll');
+//Route::get('/programas', 'Programas\ProgramaController@getAll');

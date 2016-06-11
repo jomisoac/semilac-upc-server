@@ -26,3 +26,6 @@ Route::get('tutores/{tutor_id}/grupo', 'Director\GrupoController@get_by_tutor');
 Route::get('tutores/{tutor_id}/semilleros', 'Tutores\SemilleroController@get_by_tutor');
 
 Route::post('solicitud-aval-convocatoria', 'Tutores\SolicitudAvalConvocatoriaController@post');
+
+//Retorna los estudiantes que puede invitar un tutor para pertenecer a su semillero
+Route::get('tutores/{tutor_id}/estudiantes-para-invitar', 'Estudiantes\EstudianteController@estudiantes_para_invitar');

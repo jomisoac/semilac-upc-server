@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Psy\Util\Json;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use DB;
+use App\Models\Estudiante;
 
 class EstudianteSolicitaSemilleroController extends Controller
 {
@@ -19,11 +21,14 @@ class EstudianteSolicitaSemilleroController extends Controller
     {
         $solicitudes = EstudianteSolicitaSemillero::all();
         return $solicitudes;
-        
+
     }
+
     public function get_by_tutor($tutor_id)
     {
-        return EstudianteSolicitaSemillero::whereIn('semillero_id', Semillero::select('id')->where('tutor_id',              $tutor_id)->get())->with('estudiante', 'semillero')->get();
+        return EstudianteSolicitaSemillero::whereIn('semillero_id', Semillero::select('id')->where('tutor_id', $tutor_id)->get())
+            ->where('respuesta', 'en espera')
+            ->with('estudiante', 'semillero')->get();
     }
 
 
@@ -31,12 +36,12 @@ class EstudianteSolicitaSemilleroController extends Controller
     {
         return $solicitud = EstudianteSolicitaSemillero::find($id);
     }
-    
+
     function getUsuario($email)
     {
         return Usuario::where('email', $email)->first();
     }
-    
+
     public function post(Request $request)
     {
         $data = $request->json()->all();
@@ -44,13 +49,13 @@ class EstudianteSolicitaSemilleroController extends Controller
         $solicitud = new EstudianteSolicitaSemillero();
         $solicitud->estudiante_id = $data['estudiante_id'];
         $solicitud->semillero_id = $data['semillero_id'];
-        
+
         if ($solicitud->save()) {
             if ($solicitud) {
                 //$this->guardarArchivo($request, $convocatoria->id);
                 $respuesta = array(
-                'mensaje' => 'Se envió correctamente la solicitud.',
-                'solicitud' => $solicitud
+                    'mensaje' => 'Se envió correctamente la solicitud.',
+                    'solicitud' => $solicitud
                 );
                 return JsonResponse::create($respuesta);
             } else {
@@ -62,26 +67,31 @@ class EstudianteSolicitaSemilleroController extends Controller
 
     public function put(Request $request, $id)
     {
-        try {
-            $data = $request->json()->all();
-            $solicitud = $this->get($id);
-
-            if ($solicitud) {
-                //
-                foreach ($data as $campo => $valor) {
-                    $solicitud->$campo = $valor;
-                }
-                if ($solicitud->save()) {
-                    return JsonResponse::create('Solicitud actualizado correctamente');
+        $respuesta = "";
+        DB::transaction(function () use (&$request, &$id, &$respuesta) {
+            try {
+                $data = $request->json()->all();
+                $solicitud = $this->get($id);
+                if ($solicitud) {
+                    $solicitud->fill($data);
+                    if ($solicitud->save()) {
+                        if ($solicitud->respuesta == 'aceptada') {
+                            $estudiante = Estudiante::find($solicitud->estudiante_id);
+                            $estudiante->semillero_id = $solicitud->semillero_id;
+                            $estudiante->save();
+                        }
+                        $respuesta = 'Solicitud actualizada correctamente.';
+                    } else {
+                        $respuesta = 'No se pudo actualizar la solicitud.';
+                    }
                 } else {
-                    return JsonResponse::create('No se pudo actualizar la solicitud');
+                    $respuesta = 'La solicitud que desea modificar no existe.';
                 }
-            } else {
-                return JsonResponse::create('la solicitud que desea modificar no existe');
+            } catch (Exception $e) {
+                $respuesta = "Se produjo una exepcion";
             }
-        } catch (Exception $e) {
-            return JsonResponse::create("Se produjo una exepcion");
-        }
+        });
+        return JsonResponse::create($respuesta);
     }
 
 
