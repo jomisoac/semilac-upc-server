@@ -9,7 +9,7 @@
 Route::get('estudiantes/solicitudes-semilleros','Estudiantes\EstudianteSolicitaSemilleroController@getAll');
 
 Route::get('/estudiantes/disponibles/{mi_id}', 'Estudiantes\EstudianteController@estudiantesDisponibles');
-Route::get('/estudiantes/disponibles', 'Estudiantes\EstudianteController@estudiantesDisponibles');
+//Route::get('/estudiantes/disponibles', 'Estudiantes\EstudianteController@estudiantesDisponibles');
 Route::get('/estudiantes/{estudiante_id}', 'EstudianteController@get');
 
 Route::post('/estudiantes', 'Estudiantes\EstudianteController@post');
