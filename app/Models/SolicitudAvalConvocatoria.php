@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Convocatoria;
 use App\Models\Semillero;
+use App\Models\Tutor;
 use Illuminate\Database\Eloquent\Model;
 
 class SolicitudAvalConvocatoria extends Model
@@ -24,6 +25,11 @@ class SolicitudAvalConvocatoria extends Model
     public function semillero()
     {
         return $this->hasOne(Semillero::class);
+    }
+
+    public function tutor()
+    {
+        return $this->hasOne(Tutor::class);
     }
 
 }

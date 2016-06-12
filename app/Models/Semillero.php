@@ -33,4 +33,9 @@ class Semillero extends Model
     {
         return $this->hasMany(EstudianteSolicitaSemillero::class);
     }
+
+    public function solicitud_aval()
+    {
+        return $this->hasMany(Semillero::class);
+    }
 }

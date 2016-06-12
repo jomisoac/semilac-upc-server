@@ -12,8 +12,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class SolicitudAvalConvocatoriaController extends Controller
 {
     public function getAll(){
-        return SolicitudAvalConvocatoria::all();
+        //return SolicitudAvalConvocatoria::all();
+        return SolicitudAvalConvocatoria::all()->with('tutor','semillero')->get();
     }
+
 
     public function get($id){
         return $solicitud = SolicitudAvalConvocatoria::find($id);
