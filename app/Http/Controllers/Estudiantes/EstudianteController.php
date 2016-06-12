@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Estudiantes;
 
 use App\Models\Estudiante;
 use App\Models\Proyectos;
+use App\Models\SemilleroSolicitaEstudiante;
 use App\Models\Usuario;
+use App\Models\Semillero;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 
@@ -23,7 +25,7 @@ class EstudianteController extends Controller
     public function estudiantesDisponibles($mi_id = null)
     {
         $estudiantes = array();
-        if($mi_id){
+        if ($mi_id) {
             $datos = Estudiante::where('id', '!=', $mi_id)->get();
             $datos->load('proyectos', 'programa');
             foreach ($datos as $estudiante) {
@@ -32,11 +34,11 @@ class EstudianteController extends Controller
                 } else {
                 }
             }
-        }else{
+        } else {
             $datos = Estudiante::all();
             $datos->load('proyectos', 'programa');
             foreach ($datos as $estudiante) {
-                if (sizeof($estudiante->proyectos) == 0) {
+                if (sizeof($estudiante->semillero) == 0) {
                     array_push($estudiantes, $estudiante);
                 } else {
                 }
@@ -44,6 +46,33 @@ class EstudianteController extends Controller
         }
 
         return $estudiantes;
+    }
+
+    public function estudiantes_para_invitar($tutor_id)
+    {
+        /*$semilleros_id = Semillero::select('id')->where('tutor_id', $tutor_id)->get();
+        $estudiantes_id = SemilleroSolicitaEstudiante::select('estudiante_id')
+            ->whereIn('semillero_id', $semilleros_id)
+            ->where('respuesta', 'en espera')->get();*/
+        $estudiantes_sin_semilleros = Estudiante::whereNull('semillero_id')
+            ->with('programa', 'proyectos')->get();
+        foreach ($estudiantes_sin_semilleros as $estudiante) {
+            $estudiante->invitado = $this->esta_estudiante_invitado_por_tutor($estudiante, $tutor_id);
+        }
+        return $estudiantes_sin_semilleros;
+    }
+
+    function esta_estudiante_invitado_por_tutor($estudiante, $tutor_id)
+    {
+        $semilleros_id = Semillero::select('id')->where('tutor_id', $tutor_id)->get();
+        $esta_invitado = SemilleroSolicitaEstudiante::whereIn('semillero_id', $semilleros_id)
+            ->where('estudiante_id', $estudiante->id)
+            ->where('respuesta', 'en espera')->get();
+        if (count($esta_invitado) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function getUsuario($email)
@@ -134,10 +163,10 @@ class EstudianteController extends Controller
         if ($vproyecto) {
             return JsonResponse::create(array('mensaje' => 'Ya existe un proyecto registrado con este nombre.', 'ok' => 'false'));
         } else {
-            foreach ($estudiates as $estudiante){
-                if($this->verificarMiProyecto($estudiante) != 0){
+            foreach ($estudiates as $estudiante) {
+                if ($this->verificarMiProyecto($estudiante) != 0) {
                     return JsonResponse::create(array('mensaje' => 'Actualmente tu o tu compa&ntilde;ero ya se encuentran asociados a un proyecto, finalizalo para que puedas seguir inscribiendo mas.', 'ok' => 'false'));
-                }else{
+                } else {
                     $proyecto = new Proyectos($data);
                     if ($proyecto->save()) {
                         $proyecto->estudiantes()->attach($estudiates);

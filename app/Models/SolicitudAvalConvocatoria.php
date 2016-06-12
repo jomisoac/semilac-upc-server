@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\SolicitudAvalConvocatoria;
 use App\Models\Convocatoria;
 use App\Models\Semillero;
 use App\Models\Tutor;
