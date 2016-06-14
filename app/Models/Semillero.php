@@ -28,4 +28,14 @@ class Semillero extends Model
     {
         return $this->hasMany(SemillerosSolicitanGrupos::class);
     }
+
+    public function invitaciones_de_estudiantes()
+    {
+        return $this->hasMany(EstudianteSolicitaSemillero::class);
+    }
+
+    public function solicitud_aval()
+    {
+        return $this->hasMany(Semillero::class);
+    }
 }

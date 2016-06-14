@@ -9,7 +9,7 @@ use App\Http\Requests;
 use Mockery\CountValidator\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class Linea_investigacionController extends Controller
+class LineaInvestigacionController extends Controller
 {
 
     public function getAll()
@@ -28,7 +28,7 @@ class Linea_investigacionController extends Controller
         $linea = new Linea($data);
         if ($linea->save()) {
             if ($linea) {
-                return JsonResponse::create('Se creo la línea correctamente.');
+                return JsonResponse::create('Se creó la línea correctamente.');
             } else {
                 $linea->delete();
                 return JsonResponse::create('Ocurrió un error al guardar los datos.');
