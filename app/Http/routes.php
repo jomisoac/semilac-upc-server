@@ -18,13 +18,13 @@ Route::group(['middleware' => 'cors'], function () {
         Route::get('/new_token', 'Auth\LoginController@refreshToken');
         Route::get('/programas', 'Programas\ProgramaController@getAll');
 
-        Route::group(['middleware' => 'jwt.auth'], function () {
+        //Route::group(['middleware' => 'jwt.auth'], function () {
             // Agrega automaticamente los archivos php dentro de la carpeta Routes.
             $ruta = $_SERVER["DOCUMENT_ROOT"] . "/semilac-upc-server/" . "app/Http/Routes";
             foreach (glob("$ruta/*.php") as $filename) {
                 include_once $filename;
             }
-        });
+        //});
     });
 
 });
