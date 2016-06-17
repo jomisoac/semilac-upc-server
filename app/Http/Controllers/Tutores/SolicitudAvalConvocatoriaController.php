@@ -12,9 +12,9 @@ use App\Models\SolicitudAvalConvocatoria;
 
 class SolicitudAvalConvocatoriaController extends Controller
 {
-    public function getAll(){
+    public function getAll($tutor_id){
         //return SolicitudAvalConvocatoria::all();
-        return SolicitudAvalConvocatoria::all()->with('tutor','semillero')->get();
+        return SolicitudAvalConvocatoria::where('tutor_id', $tutor_id)->with('semillero', 'convocatoria')->get();
     }
 
 

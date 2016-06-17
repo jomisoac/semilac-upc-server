@@ -7,3 +7,5 @@ Route::get('convocatorias/convocatoria-abierta', 'Director\ConvocatoriasControll
 
 //Semilleros de un tutor que no se han postulados para una convocatoria
 Route::get('convocatorias/{convocatoria_id}/tutores/{tutor_id}/semilleros-no-postulados', 'Tutores\SemilleroController@get_semilleros_no_postulados');
+
+

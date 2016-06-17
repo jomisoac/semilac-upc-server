@@ -29,3 +29,4 @@ Route::post('solicitud-aval-convocatoria', 'Tutores\SolicitudAvalConvocatoriaCon
 
 //Retorna los estudiantes que puede invitar un tutor para pertenecer a su semillero
 Route::get('tutores/{tutor_id}/estudiantes-para-invitar', 'Estudiantes\EstudianteController@estudiantes_para_invitar');
+Route::get('convocatorias-enviadas/{id}', 'Tutores\SolicitudAvalConvocatoriaController@getAll');

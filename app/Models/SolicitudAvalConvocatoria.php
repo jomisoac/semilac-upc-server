@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\Models\SolicitudAvalConvocatoria;
 use App\Models\Convocatoria;
 use App\Models\Semillero;
 use App\Models\Tutor;
@@ -19,19 +18,18 @@ class SolicitudAvalConvocatoria extends Model
 
     public function convocatoria()
     {
-        return $this->hasOne(Convocatoria::class);
+        return $this->belongsTo(Convocatoria::class);
     }
 
     public function semillero()
     {
-        return $this->hasOne(Semillero::class);
+        return $this->belongsTo(Semillero::class);
     }
 
     public function tutor()
     {
-        return $this->hasOne(Tutor::class);
+        return $this->belongsTo(Tutor::class);
     }
-
 }
 
 
